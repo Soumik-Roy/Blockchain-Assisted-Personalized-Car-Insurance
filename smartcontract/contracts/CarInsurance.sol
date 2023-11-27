@@ -32,8 +32,8 @@ contract CarInsurance is Insurance{
     // uint256 public balance = 0 ether;
 
 
-    constructor(uint256 bal) payable {
-        balance = bal;
+    constructor() payable {
+        balance = msg.value;
     }
 
     function getBalance() public view returns (uint256) {
