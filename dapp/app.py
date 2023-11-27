@@ -13,13 +13,13 @@ web3.eth.defaultAccount = web3.eth.accounts[0]
 #to set the "from" for every transaction call)
  
 # Path to the compiled contract JSON file
-compiled_contract_path = 'build/contracts/gfg.json'
+compiled_contract_path = 'build/contracts/CarInsurance.json'
  
 # Deployed contract address (see `migrate` command output: 
 # `contract address`)
 # Do Not Copy from here, contract address will be different 
 # for different contracts.
-deployed_contract_address = '0x15C667a5b0a3e6600AB50F88bF438180A4233879'
+deployed_contract_address = '0x7d39AF95a86171C03de254628AcD9fb153F5BC5d'
  
 # load contract info as JSON
 with open(compiled_contract_path) as file:
@@ -34,6 +34,6 @@ contract = web3.eth.contract(
  
 # Calling contract function (this is not persisted 
 # to the blockchain)
-output = contract.functions.geeks().call()
+output = contract.functions.getBalance().call()
  
 print(output)

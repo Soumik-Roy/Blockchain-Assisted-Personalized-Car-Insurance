@@ -5,7 +5,7 @@ pragma solidity >=0.4.15;
 import './Insurance.sol';
 import './Algorithms.sol';
 
-contract CarInsurance is Insurance {
+contract CarInsurance is Insurance{
 
     struct InsuranceTaker {
         bool isDefaulter;
@@ -32,8 +32,8 @@ contract CarInsurance is Insurance {
     // uint256 public balance = 0 ether;
 
 
-    constructor() payable {
-        balance = msg.value;
+    constructor(uint256 bal) payable {
+        balance = bal;
     }
 
     function getBalance() public view returns (uint256) {

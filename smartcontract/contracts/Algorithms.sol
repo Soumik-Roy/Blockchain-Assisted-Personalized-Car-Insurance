@@ -58,6 +58,7 @@ contract Algorithms{
     function random(uint256 _input) internal view returns (uint256) {
         // Implement your random number generation logic here
         // This function is a placeholder and should be replaced with a secure random number generator
-        return uint256(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, _input))) % 2;
+        // return uint256(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, _input))) % 2;
+        return _input % 2;
     }
 }
