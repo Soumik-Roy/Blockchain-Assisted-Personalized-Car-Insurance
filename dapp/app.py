@@ -6,6 +6,7 @@ import keyboard
  
 # truffle development blockchain address
 blockchain_address = 'http://172.31.10.78:8000'
+# blockchain_address = 'http://localhost:8000'
 
 # Client instance to interact with the blockchain
 web3 = Web3(HTTPProvider(blockchain_address)) 
