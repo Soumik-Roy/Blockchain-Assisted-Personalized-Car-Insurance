@@ -16,7 +16,7 @@ web3.eth.defaultAccount = web3.eth.accounts[0]
 compiled_contract_path = '../smartcontract/build/contracts/CarInsurance.json'
  
 # Deployed contract address (see `migrate` command output: `contract address`).
-deployed_contract_address = '0x7435FDa0c91c1eFD489e6704ac5845F36a6bD535'
+deployed_contract_address = '0xB6f1c380280C02C671FC011134c5Ba3d6099c613'
  
 # load contract info as JSON
 with open(compiled_contract_path) as file:
@@ -32,8 +32,12 @@ car_insurance_contract = web3.eth.contract(
 def wei_to_ether(wei):
     return wei / 1e18
 
+def ether_to_wei(eth):
+    return eth * 1e18
+
 # Function to get the user's balance
 def get_balance(user_address):
+    print(user_address)
     return car_insurance_contract.functions.getBalance().call({
         'from': user_address
     })
@@ -95,7 +99,7 @@ def main(user_address):
         elif choice == 1:
             balance = get_balance(user_address)
             click.secho(f'Your balance is ', fg = "yellow", nl = False)
-            click.secho(f'{balance} ETH', fg = "green")
+            click.secho(f'{wei_to_ether(balance)} ETH', fg = "green")
         elif choice == 2:
             insured = is_insured(user_address)
             if insured:
