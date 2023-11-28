@@ -38,7 +38,7 @@ def ether_to_wei(eth):
 
 # Function to get the user's balance
 def get_balance(user_address):
-    print(user_address)
+    # print(user_address)
     return car_insurance_contract.functions.getBalance().call({
         'from': user_address
     })
