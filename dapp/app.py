@@ -34,7 +34,9 @@ def wei_to_ether(wei):
 
 # Function to get the user's balance
 def get_balance(user_address):
-    return car_insurance_contract.functions.getBalance(user_address).call()
+    return car_insurance_contract.functions.getBalance().call({
+        'from': user_address
+    })
 
 # Function to check if a user is insured
 def is_insured(user_address):
@@ -93,7 +95,7 @@ def main(user_address):
         elif choice == 1:
             balance = get_balance(user_address)
             click.secho(f'Your balance is ', fg = "yellow", nl = False)
-            click.secho(f'{wei_to_ether(balance)} ETH', fg = "green")
+            click.secho(f'{balance} ETH', fg = "green")
         elif choice == 2:
             insured = is_insured(user_address)
             if insured:

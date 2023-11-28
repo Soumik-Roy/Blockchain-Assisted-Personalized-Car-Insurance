@@ -36,6 +36,7 @@ npm install -g truffle
 Compile Smart Contracts 
 ```
 cd smartcontract
+truffle compile
 
 ```
 
