@@ -36,8 +36,8 @@ contract CarInsurance is Insurance{
         balance = msg.value;
     }
 
-    function getBalance() public view returns (uint256) {
-        return balance;
+    function getBalance() public view returns (uint256 bal) {
+        return msg.sender.balance;
     }
 
     function underwrite() override payable public {
