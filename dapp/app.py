@@ -68,8 +68,8 @@ def claim(user_address):
     return transaction_hash
 
 # Function to perform an audit
-def audit(user_address, password):
-    return car_insurance_contract.functions.audit(password).call({'from': user_address})
+def audit(user_address, password, claim_penalty, defaulter_penalty):
+    return car_insurance_contract.functions.audit(password, int(ether_to_wei(claim_penalty)), int(ether_to_wei(defaulter_penalty))).call({'from': user_address})
 
 @click.command()
 @click.option('--user-address', prompt='Enter your Ethereum address', help='Your Ethereum address')
@@ -118,11 +118,19 @@ def main(user_address):
             tx_hash = claim(user_address)
             click.echo(click.style(f'Claim Transaction Hash: ', fg = "yellow"), nl = False)
             click.secho(f'{tx_hash.hex()}', fg = "green")
+            click.echo(click.style(f'Received Insurance Claim of ', fg = "yellow"), nl = False)
+            click.secho(f'1 ETH', fg = "green")
+
         elif choice == 6:
             password = click.prompt("Enter the audit password", type=str)
-            result = audit(user_address, password)
-            click.secho(click.style(f'Audit Result: ', fg = "yellow"), nl = False)
-            click.secho(f'{result}', fg = "green")
+            claim_penalty = click.prompt("Enter the premium added per claim:", type = float)
+            defaulter_penalty = click.prompt("Enter the defaulter penalty:", type = float)
+            try:
+                result = audit(user_address, password, claim_penalty, defaulter_penalty)
+                click.secho(click.style(f'Audit Result: ', fg = "yellow"), nl = False)
+                click.secho(f'{result}', fg = "green")
+            except:
+                click.secho("Access Denied!", fg = "red")
         else:
             click.secho("Invalid choice! Please enter a number between 0 and 6.", fg = "magenta")
 
