@@ -33,20 +33,24 @@ Install Truffle
 npm install -g truffle
 ```
 
-Compile Smart Contracts 
-```
-cd smartcontract
-truffle compile
-
-```
-
 Now open Ganache and do the following : 
 - Create New Workspace
 - Setup current project's smart contract folder as truffle directory
 
-Addresses:-
-- Contract : 0x7435FDa0c91c1eFD489e6704ac5845F36a6bD535
-- Deployer (Admin) : 0xA582Bb26b75CC41A316b8F8354B2736E3119d165
+Compile Smart Contracts 
+```
+cd smartcontract
+truffle compile
+```
 
- Users :- 
+Deploy Contract (If you act as the the Main Node)
+```
+npx truffle migrate --network develop
+cd ..
+```
 
+Run the Decentralised App
+```
+cd dapp
+python app.py
+```
