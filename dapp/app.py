@@ -3,7 +3,7 @@ from web3 import Web3, HTTPProvider
 import click
  
 # truffle development blockchain address
-blockchain_address = 'http://localhost:8000'
+blockchain_address = 'http://172.31.10.78:8000'
 
 # Client instance to interact with the blockchain
 web3 = Web3(HTTPProvider(blockchain_address)) 
@@ -30,28 +30,31 @@ with open(compiled_contract_path) as file:
     contract_abi = contract_json['abi']
  
 # Fetching deployed contract reference
-contract = web3.eth.contract(
+car_insurance_contract = web3.eth.contract(
     address = deployed_contract_address, abi = contract_abi)
  
 # Calling contract function (this is not persisted 
 # to the blockchain)
-output = contract.functions.getBalance().call()
+# output = car_insurance_contract.functions.getBalance().call()
 
 
-print(output)
+# print(output)
 
 ##################################### CLI CODE #######################################
 
 
 # Update these values with your actual contract address and ABI
-contract_address = "0xYourContractAddress"
-contract_abi = [...]  # Replace with your contract ABI
+# contract_address = "0xYourContractAddress"
+# contract_abi = [...]  # Replace with your contract ABI
 
 # Connect to the local Ganache node or your blockchain node
-web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:7545'))
+# web3 = Web3(Web3.HTTPProvider('http://127.0.0.1:7545'))
 
 # Create a contract instance
-car_insurance_contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+# car_insurance_contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+
+def wei_to_ether(wei):
+    return wei / 1e18
 
 # Function to get the user's balance
 def get_balance(user_address):
@@ -72,7 +75,7 @@ def underwrite(user_address):
     transaction_hash = car_insurance_contract.functions.underwrite().transact({
         'from': user_address,
         'value': value_to_send
-    })
+    })  
     return transaction_hash
 
 # Function to make a claim
@@ -89,7 +92,7 @@ def audit(user_address, password):
 @click.command()
 @click.option('--user-address', prompt='Enter your Ethereum address', help='Your Ethereum address')
 def main(user_address):
-    click.echo(f'Connected to Ethereum node: {web3.isConnected()}')
+    click.echo(f'Connected to Ethereum node: {web3.is_connected()}')
     click.echo(f'User Address: {user_address}')
 
     while True:
@@ -108,13 +111,13 @@ def main(user_address):
             break
         elif choice == 1:
             balance = get_balance(user_address)
-            click.echo(f'Balance: {balance} Wei')
+            click.echo(f'Balance: {wei_to_ether(balance)} Eth')
         elif choice == 2:
             insured = is_insured(user_address)
             click.echo(f'Is Insured: {insured}')
         elif choice == 3:
             premium = get_premium(user_address)
-            click.echo(f'Premium: {premium} Wei')
+            click.echo(f'Premium: {wei_to_ether(premium)} Eth')
         elif choice == 4:
             tx_hash = underwrite(user_address)
             click.echo(f'Underwrite Transaction Hash: {tx_hash.hex()}')
