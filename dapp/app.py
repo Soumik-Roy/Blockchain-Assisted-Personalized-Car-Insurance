@@ -59,7 +59,7 @@ def underwrite(user_address):
         'from': user_address,
         'value': value_to_send
     })  
-    return transaction_hash
+    return (premium, transaction_hash)
 
 # Function to make a claim
 def claim(user_address):
@@ -112,7 +112,9 @@ def main(user_address):
             click.echo(click.style(f'Your monthly insurance premium: ', fg = "yellow"), nl = False)
             click.secho(f'{wei_to_ether(premium)} ETH', fg = "green")
         elif choice == 4:
-            tx_hash = underwrite(user_address)
+            premium, tx_hash = underwrite(user_address)
+            click.echo(click.style(f'Paid Premium to Insurance Company : ', fg = "yellow"), nl = False)
+            click.secho(f'{wei_to_ether(premium)} ETH', fg = "green")
             click.echo(click.style(f'Underwrite Transaction Hash: ', fg = "yellow"), nl = False)
             click.secho(f'{tx_hash.hex()}', fg = "green")
         elif choice == 5:
